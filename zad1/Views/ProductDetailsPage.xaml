@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:zad1"
+             x:Class="zad1.ProductDetailsPage"
+             Title="Product Details">
+
+    <StackLayout Padding="10">
+        <Entry Placeholder="Product Name"
+               Text="{Binding Product.Name}" />
+        <Entry Placeholder="Description"
+               Text="{Binding Product.Description}" />
+        <Entry Placeholder="Price"
+               Text="{Binding Product.Price, Converter={StaticResource DecimalConverter}}" />
+
+        <Button Text="Save"
+                Command="{Binding SaveProductCommand}" />
+    </StackLayout>
+</ContentPage>

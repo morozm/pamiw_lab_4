@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:zad1"
+             x:Class="zad1.ProductsPage"
+             Title="Products">
+
+    <StackLayout Padding="10">
+        <ListView ItemsSource="{Binding Products}"
+                  SelectedItem="{Binding SelectedProduct}"
+                  SelectionMode="Single">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextCell Text="{Binding Name}" Detail="{Binding Description}" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <Button Text="Add New Product"
+                Command="{Binding AddNewProductCommand}" />
+    </StackLayout>
+</ContentPage>
