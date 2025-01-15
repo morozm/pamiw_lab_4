@@ -16,6 +16,7 @@ namespace zad1
             builder.Services.AddSingleton<IProductService, ProductService>();
             builder.Services.AddTransient<ProductsViewModel>();
             builder.Services.AddTransient<ProductDetailsViewModel>();
+            builder.Services.AddTransient<ProductsPage>();
 
             return builder.Build();
         }

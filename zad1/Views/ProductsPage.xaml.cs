@@ -7,7 +7,7 @@ namespace zad1
         public ProductsPage(ProductsViewModel viewModel)
         {
             InitializeComponent();
-            BindingContext = viewModel;  // Przypisanie ViewModelu z DI
+            BindingContext = viewModel;
         }
     }
 }

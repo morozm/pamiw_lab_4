@@ -9,7 +9,7 @@ namespace zad1.Services
     {
         private readonly List<Product> _products = new();
 
-        public async Task<List<Product>> GetAllProductsAsync()
+        public async Task<IEnumerable<Product>> GetAllProductsAsync()
         {
             return await Task.FromResult(_products);
         }
