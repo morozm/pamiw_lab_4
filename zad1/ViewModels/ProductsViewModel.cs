@@ -20,12 +20,12 @@ public partial class ProductsViewModel : ObservableObject
         Products = new ObservableCollection<Product>();
         LoadProductsCommand = new AsyncRelayCommand(LoadProductsAsync);
         AddNewProductCommand = new RelayCommand(AddNewProduct);
-        EditProductCommand = new AsyncRelayCommand<Product>(EditProduct);
+        EditProductCommand = new RelayCommand<Product>(EditProduct);
     }
 
     public IAsyncRelayCommand LoadProductsCommand { get; }
     public RelayCommand AddNewProductCommand { get; }
-    public IAsyncRelayCommand<Product> EditProductCommand { get; }
+    public RelayCommand<Product> EditProductCommand { get; }
 
     public Product SelectedProduct
     {
@@ -39,13 +39,16 @@ public partial class ProductsViewModel : ObservableObject
         }
     }
 
-    private async Task EditProduct(Product product)
+    private async void EditProduct(Product product)
     {
-        if (product != null)
+        // Tworzymy odpowiednią instancję ViewModelu
+        var productDetailsViewModel = new ProductDetailsViewModel(_productService)
         {
-            // Przekazujemy pełną nazwę typu strony (w tym przestrzeń nazw)
-            await _navigationService.NavigateToAsync("zad1.ProductDetailsPage", product);
-        }
+            Product = product
+        };
+
+        // Nawigujemy do strony ProductDetailsPage, przekazując ViewModel
+        await _navigationService.NavigateToAsync("zad1.ProductDetailsPage", productDetailsViewModel);
     }
 
 

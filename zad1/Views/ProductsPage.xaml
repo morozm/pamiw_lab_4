@@ -5,20 +5,48 @@
              x:Class="zad1.ProductsPage"
              Title="Products">
 
-    <StackLayout Padding="10">
+    <!-- Używamy Grid, aby precyzyjnie ustawić elementy na stronie -->
+    <Grid Padding="10">
+        <!-- Definiujemy wiersze -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <!-- Wypełnia przestrzeń -->
+            <RowDefinition Height="Auto" />
+            <!-- Na dole przycisk -->
+        </Grid.RowDefinitions>
+
+        <!-- Kolekcja produktów - wypełnia całą dostępną przestrzeń -->
         <CollectionView ItemsSource="{Binding Products}" SelectionMode="Single" SelectedItem="{Binding SelectedProduct}">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
+                    <!-- Grid dla elementów w kolekcji -->
                     <Grid>
-                        <Label Text="{Binding Name}" />
-                        <Button Text="Edit Product" Command="{Binding BindingContext.EditProductCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}" CommandParameter="{Binding .}" />
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <!-- Nazwa produktu -->
+                        <Label Text="{Binding Name}" Grid.Row="0" />
+
+                        <!-- Przycisk Edit Product - mały i po prawej -->
+                        <Button Text="Edit Product" 
+                                Command="{Binding BindingContext.EditProductCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}" 
+                                CommandParameter="{Binding .}"
+                                Grid.Row="1"
+                                HorizontalOptions="End"
+                                WidthRequest="100"
+                                HeightRequest="40" />
                     </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-
+        <!-- Przycisk Add New Product - na dole -->
         <Button Text="Add New Product"
-                Command="{Binding AddNewProductCommand}" />
-    </StackLayout>
+                Command="{Binding AddNewProductCommand}"
+                Grid.Row="1"                  
+                HorizontalOptions="FillAndExpand" 
+                VerticalOptions="End" />
+    </Grid>
 </ContentPage>

@@ -6,14 +6,16 @@
              Title="Product Details">
 
     <StackLayout Padding="10">
+        <!-- Bindowanie do właściwości w ViewModelu -->
         <Entry Placeholder="Product Name"
-               Text="{Binding Product.Name}" />
+               Text="{Binding Product.Name}" /> <!-- Bindowanie do 'Product.Name' w ViewModelu -->
         <Entry Placeholder="Description"
-               Text="{Binding Product.Description}" />
+               Text="{Binding Product.Description}" /> <!-- Bindowanie do 'Product.Description' w ViewModelu -->
         <Entry Placeholder="Price"
-               Text="{Binding Product.Price, Converter={StaticResource DecimalConverter}}" />
+               Text="{Binding Product.Price, Converter={StaticResource DecimalConverter}}" /> <!-- Bindowanie do 'Product.Price' w ViewModelu -->
 
+        <!-- Przycisk zapisu bindowany do SaveProductCommand w ViewModelu -->
         <Button Text="Save"
-                Command="{Binding SaveProductCommand}" />
+                Command="{Binding SaveProductCommand}" /> <!-- Bindowanie do 'SaveProductCommand' w ViewModelu -->
     </StackLayout>
 </ContentPage>
