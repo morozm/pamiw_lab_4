@@ -6,15 +6,17 @@
              Title="Products">
 
     <StackLayout Padding="10">
-        <ListView ItemsSource="{Binding Products}"
-                  SelectedItem="{Binding SelectedProduct}"
-                  SelectionMode="Single">
-            <ListView.ItemTemplate>
+        <CollectionView ItemsSource="{Binding Products}" SelectionMode="Single" SelectedItem="{Binding SelectedProduct}">
+            <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <TextCell Text="{Binding Name}" Detail="{Binding Description}" />
+                    <Grid>
+                        <Label Text="{Binding Name}" />
+                        <Button Text="Edit Product" Command="{Binding BindingContext.EditProductCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}" CommandParameter="{Binding .}" />
+                    </Grid>
                 </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
 
         <Button Text="Add New Product"
                 Command="{Binding AddNewProductCommand}" />

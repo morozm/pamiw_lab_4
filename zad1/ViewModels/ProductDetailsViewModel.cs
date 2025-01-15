@@ -3,33 +3,31 @@ using CommunityToolkit.Mvvm.Input;
 using zad1.Services;
 using zad1.Models;
 
-namespace zad1
+public partial class ProductDetailsViewModel : ObservableObject
 {
-    public partial class ProductDetailsViewModel : ObservableObject
+    private readonly IProductService _productService;
+
+    [ObservableProperty]
+    private Product product;
+
+    public ProductDetailsViewModel(IProductService productService)
     {
-        private readonly IProductService _productService;
+        _productService = productService;
+        SaveProductCommand = new AsyncRelayCommand(SaveProductAsync);
+    }
 
-        [ObservableProperty]
-        private Product product;
+    public IAsyncRelayCommand SaveProductCommand { get; }
 
-        public ProductDetailsViewModel(IProductService productService)
+    private async Task SaveProductAsync()
+    {
+        if (Product.Id == 0)
         {
-            _productService = productService;
-            SaveProductCommand = new AsyncRelayCommand(SaveProductAsync);
+            await _productService.AddProductAsync(Product);
         }
-
-        public IAsyncRelayCommand SaveProductCommand { get; }
-
-        private async Task SaveProductAsync()
+        else
         {
-            if (Product.Id == 0)
-            {
-                await _productService.AddProductAsync(Product);
-            }
-            else
-            {
-                await _productService.UpdateProductAsync(Product);
-            }
+            await _productService.UpdateProductAsync(Product);
         }
     }
 }
+

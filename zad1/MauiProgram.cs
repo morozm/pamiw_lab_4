@@ -1,6 +1,4 @@
-﻿using Microsoft.Maui.Hosting;
-using Microsoft.Extensions.DependencyInjection;
-using zad1.Services;
+﻿using zad1.Services;
 
 namespace zad1
 {
@@ -14,8 +12,11 @@ namespace zad1
 
             // Rejestracja serwisów
             builder.Services.AddSingleton<IProductService, ProductService>();
+            builder.Services.AddSingleton<INavigationService, NavigationService>();
             builder.Services.AddTransient<ProductsViewModel>();
             builder.Services.AddTransient<ProductDetailsViewModel>();
+            builder.Services.AddTransient<ProductsPage>();
+            builder.Services.AddTransient<ProductDetailsPage>();
 
             return builder.Build();
         }

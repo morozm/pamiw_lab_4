@@ -1,5 +1,3 @@
-using Microsoft.Maui.Controls;
-
 namespace zad1
 {
     public partial class ProductDetailsPage : ContentPage
