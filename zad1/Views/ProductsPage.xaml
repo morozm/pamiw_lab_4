@@ -5,47 +5,81 @@
              x:Class="zad1.ProductsPage"
              Title="Products">
 
-    <!-- Używamy Grid, aby precyzyjnie ustawić elementy na stronie -->
     <Grid Padding="10">
-        <!-- Definiujemy wiersze -->
+        <!-- Definiowanie wierszy -->
         <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <!-- Wypełnia przestrzeń -->
             <RowDefinition Height="Auto" />
-            <!-- Na dole przycisk -->
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <!-- Kolekcja produktów - wypełnia całą dostępną przestrzeń -->
-        <CollectionView ItemsSource="{Binding Products}" SelectionMode="Single" SelectedItem="{Binding SelectedProduct}">
+        <!-- Nagłówki kolumn -->
+        <Grid Grid.Row="0" Padding="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="60" />
+                <ColumnDefinition Width="60" />
+                <!-- Szerokość dla przycisku Delete -->
+            </Grid.ColumnDefinitions>
+
+            <Label Text="Id" Grid.Column="0" FontAttributes="Bold"/>
+            <Label Text="Name" Grid.Column="1" FontAttributes="Bold"/>
+            <Label Text="Description" Grid.Column="2" FontAttributes="Bold"/>
+            <Label Text="Price" Grid.Column="3" FontAttributes="Bold"/>
+        </Grid>
+
+        <!-- Kolekcja produktów -->
+        <CollectionView Grid.Row="1" ItemsSource="{Binding Products}" SelectionMode="Single" SelectedItem="{Binding SelectedProduct}">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <!-- Grid dla elementów w kolekcji -->
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
+                    <Grid Padding="5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="3*" />
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <!-- Dla przycisku Delete -->
+                        </Grid.ColumnDefinitions>
 
-                        <!-- Nazwa produktu -->
-                        <Label Text="{Binding Name}" Grid.Row="0" />
+                        <!-- Wyświetlanie szczegółów produktu w kolumnach -->
+                        <Label Text="{Binding Id}" Grid.Column="0" TextColor="Gray"/>
+                        <Label Text="{Binding Name}" Grid.Column="1" FontAttributes="Bold"/>
+                        <Label Text="{Binding Description}" Grid.Column="2"/>
+                        <Label Text="{Binding Price}" Grid.Column="3"/>
 
-                        <!-- Przycisk Edit Product - mały i po prawej -->
-                        <Button Text="Edit Product" 
+                        <!-- Przycisk Edytuj produkt -->
+                        <Button Text="Edit" 
                                 Command="{Binding BindingContext.EditProductCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}" 
                                 CommandParameter="{Binding .}"
-                                Grid.Row="1"
+                                Grid.Column="4"
                                 HorizontalOptions="End"
-                                WidthRequest="100"
+                                WidthRequest="60"
+                                HeightRequest="40" />
+
+                        <!-- Przycisk Usuń produkt -->
+                        <Button Text="Delete" 
+                                Command="{Binding BindingContext.DeleteProductCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}" 
+                                CommandParameter="{Binding .}"
+                                Grid.Column="5" 
+                                HorizontalOptions="End"
+                                BackgroundColor="Red"
+                                TextColor="White"
+                                WidthRequest="60"
                                 HeightRequest="40" />
                     </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-        <!-- Przycisk Add New Product - na dole -->
+        <!-- Przycisk Add New Product -->
         <Button Text="Add New Product"
                 Command="{Binding AddNewProductCommand}"
-                Grid.Row="1"                  
+                Grid.Row="2"                   
                 HorizontalOptions="FillAndExpand" 
                 VerticalOptions="End" />
     </Grid>

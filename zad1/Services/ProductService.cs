@@ -1,10 +1,12 @@
 ﻿using zad1.Models;
+using System.Diagnostics;
 
 namespace zad1.Services
 {
     public class ProductService : IProductService
     {
         private readonly List<Product> _products = new();
+        private int _nextId = 1;
 
         public async Task<IEnumerable<Product>> GetAllProductsAsync()
         {
@@ -19,6 +21,7 @@ namespace zad1.Services
 
         public async Task AddProductAsync(Product product)
         {
+            product.Id = _nextId++;
             _products.Add(product);
             await Task.CompletedTask;
         }
@@ -28,8 +31,9 @@ namespace zad1.Services
             var existingProduct = _products.FirstOrDefault(p => p.Id == product.Id);
             if (existingProduct != null)
             {
-                _products.Remove(existingProduct);
-                _products.Add(product);
+                existingProduct.Name = product.Name;
+                existingProduct.Description = product.Description;
+                existingProduct.Price = product.Price;
             }
             await Task.CompletedTask;
         }
@@ -40,6 +44,7 @@ namespace zad1.Services
             if (product != null)
             {
                 _products.Remove(product);
+                Debug.WriteLine($"Product deleted: {product.Name}");
             }
             await Task.CompletedTask;
         }

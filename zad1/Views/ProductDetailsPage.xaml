@@ -5,17 +5,36 @@
              x:Class="zad1.ProductDetailsPage"
              Title="Product Details">
 
-    <StackLayout Padding="10">
-        <!-- Bindowanie do właściwości w ViewModelu -->
-        <Entry Placeholder="Product Name"
-               Text="{Binding Product.Name}" /> <!-- Bindowanie do 'Product.Name' w ViewModelu -->
-        <Entry Placeholder="Description"
-               Text="{Binding Product.Description}" /> <!-- Bindowanie do 'Product.Description' w ViewModelu -->
-        <Entry Placeholder="Price"
-               Text="{Binding Product.Price, Converter={StaticResource DecimalConverter}}" /> <!-- Bindowanie do 'Product.Price' w ViewModelu -->
+    <Grid Padding="10" RowSpacing="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <!-- Wypełnia przestrzeń -->
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
 
-        <!-- Przycisk zapisu bindowany do SaveProductCommand w ViewModelu -->
-        <Button Text="Save"
-                Command="{Binding SaveProductCommand}" /> <!-- Bindowanie do 'SaveProductCommand' w ViewModelu -->
-    </StackLayout>
+        <!-- Pola wejściowe dla danych produktu -->
+        <Entry Placeholder="Product Name"
+               Text="{Binding Product.Name}"
+               Grid.Row="0" />
+        <Entry Placeholder="Description"
+               Text="{Binding Product.Description}"
+               Grid.Row="1" />
+        <Entry Placeholder="Price"
+               Text="{Binding Product.Price, Converter={StaticResource DecimalConverter}}"
+               Grid.Row="2" />
+
+        <!-- Przyciski Save na dole -->
+        <Grid Grid.Row="4" ColumnSpacing="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Button Text="Save"
+                    Command="{Binding SaveProductCommand}"
+                    Grid.Column="0" />
+        </Grid>
+    </Grid>
 </ContentPage>

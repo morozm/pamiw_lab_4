@@ -21,11 +21,13 @@ public partial class ProductsViewModel : ObservableObject
         LoadProductsCommand = new AsyncRelayCommand(LoadProductsAsync);
         AddNewProductCommand = new RelayCommand(AddNewProduct);
         EditProductCommand = new RelayCommand<Product>(EditProduct);
+        DeleteProductCommand = new RelayCommand<Product>(DeleteProduct);
     }
 
     public IAsyncRelayCommand LoadProductsCommand { get; }
     public RelayCommand AddNewProductCommand { get; }
     public RelayCommand<Product> EditProductCommand { get; }
+    public RelayCommand<Product> DeleteProductCommand { get; }
 
     public Product SelectedProduct
     {
@@ -42,7 +44,7 @@ public partial class ProductsViewModel : ObservableObject
     private async void EditProduct(Product product)
     {
         // Tworzymy odpowiednią instancję ViewModelu
-        var productDetailsViewModel = new ProductDetailsViewModel(_productService)
+        var productDetailsViewModel = new ProductDetailsViewModel(_productService, _navigationService)
         {
             Product = product
         };
@@ -67,8 +69,19 @@ public partial class ProductsViewModel : ObservableObject
             Price = 0.0m
         };
 
-        Products.Add(newProduct);
         _productService.AddProductAsync(newProduct);
+        Products.Add(newProduct);
+    }
+    private async void DeleteProduct(Product product)
+    {
+        if (product != null)
+        {
+            // Usuwanie produktu z serwisu
+            await _productService.DeleteProductAsync(product.Id);
+
+            // Usuwanie produktu z kolekcji, co automatycznie odświeża UI
+            Products.Remove(product);
+        }
     }
 }
 
